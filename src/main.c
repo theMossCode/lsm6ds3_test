@@ -146,7 +146,7 @@ static void get_rssi(int8_t *rssi)
 			return;
 		}
 
-		printk("Conn handle: %d", conn_handle);
+		// printk("Conn handle: %d", conn_handle);
 
 		buf = bt_hci_cmd_create(BT_HCI_OP_READ_RSSI, sizeof(*cp));
 		if(buf == NULL){
@@ -214,7 +214,12 @@ void main(void)
 	}
 
 	while(1){
-		k_sleep(K_MSEC(measure_period_ms));
+		if(measure_period_ms > 0){
+			k_sleep(K_MSEC(measure_period_ms));
+		}
+		else{
+			k_sleep(K_FOREVER);
+		}
 
 		if(default_conn){
 			get_rssi(&last_rssi);
