@@ -1,0 +1,60 @@
+/{
+    chosen{
+		zephyr,console = &usb_cdc_acm_uart;
+		zephyr,shell-uart = &usb_cdc_acm_uart;
+		zephyr,uart-mcumgr = &usb_cdc_acm_uart;
+		zephyr,bt-mon-uart = &usb_cdc_acm_uart;
+		zephyr,bt-c2h-uart = &usb_cdc_acm_uart;
+    };
+};
+
+&pinctrl {
+    lsm6ds3_default: i2c1_default{
+        group1{
+            psels = < NRF_PSEL(TWIM_SDA, 0, 7) >,
+                    < NRF_PSEL(TWIM_SCL, 0, 27)>;
+        };
+    };
+
+    lsm6ds3_sleep: i2c1_sleep{
+        group1{
+            psels = < NRF_PSEL(TWIM_SDA, 0, 7) >,
+                    < NRF_PSEL(TWIM_SCL, 0, 27)>;
+                    low-power-enable;
+        };
+    };
+};
+
+
+&i2c0 {
+    status = "okay";
+    pinctrl-0 = < &lsm6ds3_default >;
+    pinctrl-1 = < &lsm6ds3_sleep >;
+    pinctrl-names = "default", "sleep";
+
+    imu0:lsm6ds3@6a{
+        status = "okay";
+        compatible = "st,lsm6ds3";
+        reg = < 0x6a >;
+        irq-gpios = <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; 
+    };
+};
+
+&gpio0 {
+    status = "okay";
+};
+
+&uart0 {
+    status = "disabled";
+};
+
+
+zephyr_udc0: &usbd {
+    compatible = "nordic,nrf-usbd";
+    status = "okay";
+    usb_cdc_acm_uart:cdc_acm_uart0 {
+        compatible = "zephyr,cdc-acm-uart";
+        
+    };
+};
+

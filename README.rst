@@ -1,33 +1,14 @@
-.. _hello_world:
+.. _lsm6ds3_test:
 
-Hello World
+LSM6DS3_TEST
 ###########
 
 Overview
 ********
 
-A simple sample that can be used with any :ref:`supported board <boards>` and
-prints "Hello World" to the console.
+Test for LSM6DS3 accelerometer using nrf52840. It sends samples over BLE at interval defined in the measurement period. The Adafruit accelerometer service is used(https://learn.adafruit.com/bluefruit-playground-app/ble-services) 
 
 Building and Running
 ********************
 
-This application can be built and executed on QEMU as follows:
-
-.. zephyr-app-commands::
-   :zephyr-app: samples/hello_world
-   :host-os: unix
-   :board: qemu_x86
-   :goals: run
-   :compact:
-
-To build for another board, change "qemu_x86" above to that board's name.
-
-Sample Output
-=============
-
-.. code-block:: console
-
-    Hello World! x86
-
-Exit QEMU by pressing :kbd:`CTRL+A` :kbd:`x`.
+Build on nrf connect for vs code(NCS version 2.3.0).

@@ -1,6 +1,10 @@
 # editors
 *.swp
 *~
+*.code-workspace
+
+/.vscode/
+/.venv/
 
 # build
 /build*/

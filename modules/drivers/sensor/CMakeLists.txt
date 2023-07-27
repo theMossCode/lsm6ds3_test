@@ -1,0 +1,1 @@
+add_subdirectory(lsm6ds3)
